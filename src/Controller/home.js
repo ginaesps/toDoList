@@ -1,7 +1,7 @@
 const { query } = require('../DataBase/Conexion');
 const mysql = require('../DataBase/Conexion');
 const io = require("socket.io-client");
-const socket = io("http://127.0.0.1:5001",{
+const socket = io("http://127.0.0.1:5001",{ //client socket
     withCredentials: true,
     extraHeaders: {
         "my-custom-header": "abcd"

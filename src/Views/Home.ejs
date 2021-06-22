@@ -109,7 +109,7 @@
 
     <script>
 
-        var socket = io("http://127.0.0.1:5001", {
+        var socket = io("http://127.0.0.1:5001", { //socket conection with client
             extraHeaders: {
                 "my-custom-header": "abcd"
             }
@@ -200,7 +200,8 @@
             let mensaje = await response.json();
 
             if(response.status == 200){
-                alert("Actualizado");
+                //alert("Actualizado");
+                console.log('actualizado');
             }
             else{
                 alert(mensaje.mensaje);
@@ -215,12 +216,12 @@
                     if(tablaLista.getElementsByTagName('tr')[i].getElementsByTagName('td')[0].innerText == obj.id){
                         console.log(tablaLista.getElementsByTagName('tr')[i].getElementsByTagName('input')[0].checked);
                         if(tablaLista.getElementsByTagName('tr')[i].getElementsByTagName('input')[0].checked == 1){
-                            tablaLista.getElementsByTagName('tr')[i].getElementsByTagName('input')[0].checked = false;
-                            tablaLista.getElementsByTagName('tr')[i].style.textDecorationLine =  "";
+                            tablaLista.getElementsByTagName('tr')[i].getElementsByTagName('input')[0].checked = true;
+                            tablaLista.getElementsByTagName('tr')[i].style.textDecorationLine =  "line-through";
                         }
                         else{
-                            tablaLista.getElementsByTagName('tr')[i].style.textDecorationLine =  "line-through";
-                            tablaLista.getElementsByTagName('tr')[i].getElementsByTagName('input')[0].checked = true;
+                            tablaLista.getElementsByTagName('tr')[i].style.textDecorationLine =  "";
+                            tablaLista.getElementsByTagName('tr')[i].getElementsByTagName('input')[0].checked = false;
                         }
                     }
                 }
@@ -228,7 +229,7 @@
         });
 
         async function Delete(obj){
-            if(confirm("Quieres Eliminar el Evento")){
+            if(confirm("¿Seguro que deseas eliminar?")){
                 let id = obj.getElementsByTagName('td')[0].innerText;
                 let response = await fetch('/delete/'+id, {
                     method: 'DELETE', 
@@ -241,7 +242,8 @@
                 let mensaje = await response.json();
     
                 if(response.status == 200){
-                    alert("Eliminado");
+                    //alert("Eliminado");
+                    console.log('eliminado exitosamente');
                 }
                 else{
                     alert(mensaje.Mensaje);
