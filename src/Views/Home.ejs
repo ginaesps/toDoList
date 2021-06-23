@@ -115,9 +115,9 @@
             }
         });
 
-        socket.on('toDo', function(obj) {
+        socket.on('toDo', function(obj) { //typeof = tarea
         
-            let Lista = document.getElementById('ToDoList');
+            let Lista = document.getElementById('ToDoList'); //tbody
             let tr;
             if(obj[0].Estado == 0){
                 tr =  `
@@ -148,7 +148,7 @@
                 `;
             }
 
-            Lista.innerHTML = Lista.innerHTML + tr;
+            Lista.innerHTML += tr;
         });
 
         async function ADD(obj){
@@ -178,7 +178,7 @@
             let mensaje = await response.json();
 
             if(response.status == 200){
-                alert("Guardado");
+                console.log("Guardado");
             }
             else{
                 alert(mensaje.Mensaje);
@@ -200,7 +200,6 @@
             let mensaje = await response.json();
 
             if(response.status == 200){
-                //alert("Actualizado");
                 console.log('actualizado');
             }
             else{
@@ -209,13 +208,13 @@
         }
       
         socket.on('updateEstado', function(obj){
-            console.log(obj);
+            //console.log(obj);
             let tablaLista = document.getElementById('lista');
-            for(let i= 1; i<tablaLista.getElementsByTagName('tr').length; i++){
+            for(let i= 1; i<tablaLista.getElementsByTagName('tr').length; i++){ // i=1 because 1st tr is from thead and we only want the ones with dynamic content
                 if(typeof tablaLista.getElementsByTagName('tr')[i].getElementsByTagName('td')[0].innerText !== "undefined"){
                     if(tablaLista.getElementsByTagName('tr')[i].getElementsByTagName('td')[0].innerText == obj.id){
                         console.log(tablaLista.getElementsByTagName('tr')[i].getElementsByTagName('input')[0].checked);
-                        if(tablaLista.getElementsByTagName('tr')[i].getElementsByTagName('input')[0].checked == 1){
+                        if(obj.check == 1){
                             tablaLista.getElementsByTagName('tr')[i].getElementsByTagName('input')[0].checked = true;
                             tablaLista.getElementsByTagName('tr')[i].style.textDecorationLine =  "line-through";
                         }
@@ -251,11 +250,11 @@
             }
         }
 
-        socket.on('eliminarToDo', function(obj){
+        socket.on('eliminarToDo', (id) => {
             let tablaLista = document.getElementById('lista');
             for(let i= 1; i<tablaLista.getElementsByTagName('tr').length; i++){
                 if(typeof tablaLista.getElementsByTagName('tr')[i].getElementsByTagName('td')[0].innerText !== "undefined"){
-                    if(tablaLista.getElementsByTagName('tr')[i].getElementsByTagName('td')[0].innerText == obj){
+                    if(tablaLista.getElementsByTagName('tr')[i].getElementsByTagName('td')[0].innerText == id){
                         tablaLista.getElementsByTagName('tr')[i].remove();
                     }
                 }
